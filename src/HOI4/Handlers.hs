@@ -3083,7 +3083,7 @@ data DoctrineCostReduction = DoctrineCostReduction
         ,   dcr_technology :: [Text]
         }
 newDCR :: DoctrineCostReduction
-newDCR = DoctrineCostReduction Nothing undefined 1 [] []
+newDCR = DoctrineCostReduction Nothing 0 1 [] []
 addDoctrineCostReduction :: forall g m. (HOI4Info g, Monad m) => StatementHandler g m
 addDoctrineCostReduction stmt@[pdx| %_ = @scr |]
     = pp_dcr =<< foldM addLine newDCR scr
