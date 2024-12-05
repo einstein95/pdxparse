@@ -3712,7 +3712,7 @@ data DamageBuilding = DamageBuilding
         }
 
 newDB :: DamageBuilding
-newDB = DamageBuilding undefined Nothing Nothing Nothing
+newDB = DamageBuilding "" Nothing Nothing Nothing
 
 damageBuilding :: forall g m. (HOI4Info g, Monad m) => StatementHandler g m
 damageBuilding stmt@[pdx| %_ = @scr |]
@@ -3720,6 +3720,8 @@ damageBuilding stmt@[pdx| %_ = @scr |]
     where
         addLine :: DamageBuilding -> GenericStatement -> PPT g m DamageBuilding
         addLine db [pdx| type = ?txt |] = return db { db_type = txt }
+        addLine db [pdx| tags = ?txt |] = return db { db_type = txt }
+        addLine db [pdx| tags = @_ |] = return db { db_type = "<!-- Multiple tags check script -->" }
         addLine db [pdx| damage = !num |] = return db { db_damage = Just num }
         addLine db [pdx| damage = $txt |] = return db { db_damagevar = Just txt }
         addLine db [pdx| province = !num |] = return db {db_province = Just num}
