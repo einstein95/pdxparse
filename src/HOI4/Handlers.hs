@@ -1833,10 +1833,11 @@ newRM = RandomMod [] []
 randomList :: forall g m. (HOI4Info g, Monad m) => StatementHandler g m
 randomList stmt@[pdx| %_ = @scr |] =
     let (_,scre) = extractStmt (matchLhsText "seed") scr in -- ugly solution to dealing with seed type in random_list
-    if all chk scre then -- Ugly solution for vars in random list
-        fmtRandomList $ map entry scre
+    let (_,scree) = extractStmt (matchLhsText "log") scre in -- ugly solution to dealing with log type in random_list
+    if all chk scree then -- Ugly solution for vars in random list
+        fmtRandomList $ map entry scree
     else
-        fmtRandomVarList $ map entryv scre
+        fmtRandomVarList $ map entryv scree
     where
         chk [pdx| !weight = @scr |] = True
         chk [pdx| %var = @scr |] = False
