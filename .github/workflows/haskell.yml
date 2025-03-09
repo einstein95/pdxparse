@@ -101,7 +101,7 @@ jobs:
     - name: Zip artifacts
       run: for folder in pdxparse-${{github.ref_name}}-${{ vars.GAME }}-*; do echo "creating ${folder}.zip ..."; zip -r ${folder}.zip $folder; done
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         name: ${{ steps.tagannotation.outputs.annotation }}
         generate_release_notes: true
